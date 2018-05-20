@@ -44,4 +44,11 @@ public class DaysCalculator {
 		this.start = start;
 		this.end = end;
 	}
+
+	/*
+	 * Calculates and returns the number of days between the dates
+	 */
+	public int calculateTheResult() {
+		return 0;
+	}
 }
