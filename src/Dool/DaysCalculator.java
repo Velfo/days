@@ -137,29 +137,32 @@ public class DaysCalculator {
 		int daysBetweenDays = 0;
 		int startYear = this.start[2];
 		int endYear = this.end[2];
+		int startMonth = this.start[1];
+		int endMonth = this.end[1];
+		int startDay = this.start[0];
+		int endDay = this.end[0];
+		// change the start and end if they are reverse
 		if(startYear > endYear) {
 			int interim = startYear;
 			startYear = endYear;
 			endYear = interim;
 		}
-		// the dates are in the same year
-		if (this.start[2] == this.end[2]) {
-			daysBetweenMonths = calculatorForMonths(this.start[1], this.end[1], this.start[2]);
+		// the dates are in the same year (for months)
+		if (startYear == endYear) {
+			daysBetweenMonths = calculatorForMonths(startMonth, endMonth, startYear);
 		} else {
-			// start[1] and end[1] are the months in the start and end arrays
-			int daysBetweenMonthsFirstPart = this.calculatorForMonthsStart(this.start[1], 12, this.start[2]);
-			int daysBetweenMonthsSecondPart = this.calculatorForMonthsEnd(0, this.end[1], this.end[2]);
+			int daysBetweenMonthsFirstPart = this.calculatorForMonthsStart(startMonth, 12, startYear);
+			int daysBetweenMonthsSecondPart = this.calculatorForMonthsEnd(0, endMonth, endYear);
 			System.out.println("daysBetweenMonthsFirstPart "+ daysBetweenMonthsFirstPart);
 			System.out.println("daysBetweenMonthsSecondPart "+ daysBetweenMonthsSecondPart);
 			daysBetweenMonths = daysBetweenMonthsFirstPart + daysBetweenMonthsSecondPart;
 		}
 		// the dates are in the same year on month (for days)
-		if (this.start[1] == this.end[1] && this.start[2] == this.end[2]) {
-			daysBetweenDays = calculatorForDays(this.start[0], this.end[0], this.start[1], this.start[2]);
+		if (startMonth == endMonth && startYear == endYear) {
+			daysBetweenDays = calculatorForDays(startDay, endDay, startMonth, startYear);
 		} else {
-			// start[1] and end[1] are the months in the start and end arrays
-			int daysBetweenDaysFirstPart = this.calculatorForDaysStart(this.start[0], this.start[1], this.start[2]);
-			int daysBetweenDaysSecondPart = this.calculatorForDaysEnd(this.end[0]);
+			int daysBetweenDaysFirstPart = this.calculatorForDaysStart(startDay, startMonth, startYear);
+			int daysBetweenDaysSecondPart = this.calculatorForDaysEnd(endDay);
 			System.out.println("daysBetweenDaysFirstPart "+ daysBetweenDaysFirstPart);
 			System.out.println("daysBetweenDaysSecondPart "+ daysBetweenDaysSecondPart);
 			daysBetweenDays = daysBetweenDaysFirstPart + daysBetweenDaysSecondPart;
