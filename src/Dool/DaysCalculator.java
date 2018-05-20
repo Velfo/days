@@ -17,8 +17,8 @@ public class DaysCalculator {
 	}
 
 	/*
-	 * Calculates number of days from start of the month to the date and from the
-	 * date to the end of the month
+	 * Calculates number of day between dates if the dates are in the same month and
+	 * year
 	 */
 	public int calculatorForDays(int startDay, int endDay, int theMonth, int theYear) {
 		int theResult = endDay - startDay;
@@ -26,9 +26,29 @@ public class DaysCalculator {
 		int theNumberOfDays = 0;
 		if (theResult > 1) {
 			for (int i = startDay + 1; i < endDay; i++) {
-				theNumberOfDays ++;
+				theNumberOfDays++;
 			}
 		}
+		return theNumberOfDays;
+	}
+
+	/*
+	 * Calculates number of day between dates if the dates are in adjacent months
+	 * (the start month)
+	 */
+	public int calculatorForDaysStart(int startDay, int theMonth, int theYear) {
+		// check how many days in the month
+		int totalDaysInTheMonths = this.monthRange.getTheExactDaysInMonth(theMonth, theYear);
+		int theNumberOfDays = totalDaysInTheMonths - startDay - 1;
+		return theNumberOfDays;
+	}
+
+	/*
+	 * Calculates number of day between dates if the dates are in adjacent months
+	 * (the end month)
+	 */
+	public int calculatorForDaysEnd(int endDay) {
+		int theNumberOfDays = endDay - 1;
 		return theNumberOfDays;
 	}
 
@@ -121,18 +141,20 @@ public class DaysCalculator {
 			// start[1] and end[1] are the months in the start and end arrays
 			int daysBetweenMonthsFirstPart = this.calculatorForMonthsStart(this.start[1], 12, this.start[2]);
 			int daysBetweenMonthsSecondPart = this.calculatorForMonthsEnd(0, this.end[1], this.end[2]);
+			System.out.println("daysBetweenMonthsFirstPart "+ daysBetweenMonthsFirstPart);
+			System.out.println("daysBetweenMonthsSecondPart "+ daysBetweenMonthsSecondPart);
 			daysBetweenMonths = daysBetweenMonthsFirstPart + daysBetweenMonthsSecondPart;
 		}
 		// the dates are in the same year on month (for days)
 		if (this.start[1] == this.end[1] && this.start[2] == this.end[2]) {
-			daysBetweenMonths = calculatorForDays(this.start[0], this.end[0], this.start[1], this.start[2]);
+			daysBetweenDays = calculatorForDays(this.start[0], this.end[0], this.start[1], this.start[2]);
 		} else {
 			// start[1] and end[1] are the months in the start and end arrays
-			int daysBetweenMonthsFirstPart = this.calculatorForMonthsStart(this.start[1], 12, this.start[2]);
-			int daysBetweenMonthsSecondPart = this.calculatorForMonthsEnd(0, this.end[1], this.end[2]);
-			daysBetweenMonths = daysBetweenMonthsFirstPart + daysBetweenMonthsSecondPart;
+			int daysBetweenDaysFirstPart = this.calculatorForDaysStart(this.start[1], 12, this.start[2]);
+			int daysBetweenDaysSecondPart = this.calculatorForDaysEnd(this.end[1]);
+			daysBetweenDays = daysBetweenDaysFirstPart + daysBetweenDaysSecondPart;
 		}
-		System.out.println(daysBetweenMonths);
+		System.out.println(daysBetweenDays);
 		return 0;
 	}
 }
