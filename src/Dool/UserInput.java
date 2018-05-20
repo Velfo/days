@@ -36,6 +36,34 @@ public class UserInput {
 	}
 
 	/*
+	 * User enters the start date
+	 */
+	public int[] getTheEndDay() {
+		while (true) {
+			System.out.println("Please, input the end date in dd/mm/yyyy format: ");
+			try {
+				int[] userInputInArrayFormat = new int[3];
+				// now try to find at least one match
+				String uInputEndDate = receiveInputDate();
+				if (uInputEndDate != null) {
+					userInputInArrayFormat = this.parseInputDate(uInputEndDate);
+				}
+				if (uInputEndDate != null && userInputInArrayFormat != null) {
+					System.out.printf("You have entered (%s) as your end date. %n", uInputEndDate);
+					return userInputInArrayFormat;
+				} else {
+					continue;
+				}
+			} catch (Throwable t) {
+				// TODO handle better
+				t.printStackTrace();
+				break;
+			}
+		}
+		return null;
+	}
+
+	/*
 	 * User enters the dates to be considered
 	 */
 	public void enterTheDays() {
@@ -70,8 +98,7 @@ public class UserInput {
 		Pattern p = Pattern.compile("([0-9]{2})\\/([0-9]{2})\\/([0-9]{4})"); // the pattern to search for
 		Matcher m = p.matcher(stringToSearch);
 		if (!m.find()) {
-			System.out.printf("The format of the entered date (%s) is incorrect.%n",
-					uInput);
+			System.out.printf("The format of the entered date (%s) is incorrect.%n", uInput);
 			return null;
 		}
 		return uInput;
@@ -195,7 +222,7 @@ public class UserInput {
 			}
 		}
 		// check for February
-		if (theMonth == 2) {
+		if (theMonth == february) {
 			// if the year is leap year
 			if (this.leapYear(theYear) && this.betweenNums(theDay, 1, 29)) {
 				System.out.println("Found it in 29s ");

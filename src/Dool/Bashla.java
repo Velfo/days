@@ -1,7 +1,5 @@
 package Dool;
 
-import java.util.Scanner;
-
 public class Bashla {
 
 	public static void main(String[] args) {
@@ -9,6 +7,7 @@ public class Bashla {
 		UserInput usin = new UserInput();
 
 		int[] theStartDate = usin.getTheStartDay();
+		int[] theEndDate = usin.getTheEndDay();
 
 	}
 
