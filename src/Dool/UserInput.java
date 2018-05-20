@@ -14,10 +14,10 @@ public class UserInput {
 				while (true){
 			        System.out.println("Input the start date.");
 			        try {
-			            String maxTemp = input.nextLine();
+			            String uInput = input.nextLine();
 			            // TODO whatever you need to do with max temp
 			            
-			            String stringToSearch = maxTemp;
+			            String stringToSearch = uInput;
 
 					    Pattern p = Pattern.compile("([0-9]{2})\\/([0-9]{2})\\/([0-9]{4})");   // the pattern to search for
 //			            Pattern p = Pattern.compile("([0-3]{1})([0-3]{1})\\/([0-9]{2})\\/([0-9]{4})");
@@ -27,17 +27,19 @@ public class UserInput {
 					    if (m.find() && this.checkRangeGeneral(stringToSearch))
 					      System.out.println("Found a match");
 					    else {
-					    	 System.out.println("Did not find a match");
+//					    	 System.out.println("The format of the entered date is incorrect. Please enter a correct date");
+					    	 System.out.printf("The format of the entered date (%s) is incorrect. Please enter a correct start date %n ", uInput); 
 					    	 continue;
 					    }
-					     
+					    System.out.printf("You have entered (%s) as your start date. Now, please enter the end date %n ", uInput);
+					    System.out.println("Input the end date.");
 			        }
 			        catch (Throwable t) {
 			            // TODO handle better
 			            t.printStackTrace();
 			            break;
 			        }
-			        System.out.println("Input the end date.");
+			        
 			        try {
 			            int minTemp = input.nextInt();
 			            // TODO whatever you need to do with min temp
@@ -87,9 +89,7 @@ public class UserInput {
 	 * Finding out if the entered year is a leap year
 	 */
 	public boolean leapYear(int theYear) {
-		int year = 1900;
 	    boolean leapYear = false;
-	    
         if(theYear % 4 == 0)
         {
             if( theYear % 100 == 0)
@@ -113,7 +113,9 @@ public class UserInput {
           	
 		return leapYear;
 	}
-	
+	/*
+	 * Check if the days entered for the required months are in correct range
+	 */
 	public boolean checkRangeMonths(int theDay, int theMonth, int theYear) {
 		int thirtyOneDays[] = {1, 3, 5, 7, 8, 10, 12};
 		int thirtyDays[] = {4, 6, 9, 11};
@@ -148,7 +150,6 @@ public class UserInput {
 				return false;
 			} 
 		}
-		
 		return false;
 	}
 
