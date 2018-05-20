@@ -64,33 +64,8 @@ public class UserInput {
 	}
 
 	/*
-	 * User enters the dates to be considered
+	 * Receive the .
 	 */
-	public void enterTheDays() {
-		while (true) {
-			System.out.println("Input the start date.");
-			try {
-				String uInputStartDate = receiveInputDate();
-				// now try to find at least one match
-				if (uInputStartDate != null && this.checkRangeGeneral(uInputStartDate)) {
-					System.out.printf("You have entered (%s) as your start date. Now, please enter the end date %n ",
-							uInputStartDate);
-					System.out.println("Input the end date.");
-					String uInputEndDate = receiveInputDate();
-					if (uInputEndDate != null && this.checkRangeGeneral(uInputEndDate)) {
-						System.out.println("You have entered correct days.");
-					}
-				} else {
-					continue;
-				}
-			} catch (Throwable t) {
-				// TODO handle better
-				t.printStackTrace();
-				break;
-			}
-		}
-	}
-
 	public String receiveInputDate() {
 		Scanner input = new Scanner(System.in);
 		String uInput = input.nextLine();
@@ -173,31 +148,6 @@ public class UserInput {
 	}
 
 	/*
-	 * Finding out if the entered year is a leap year
-	 */
-	public boolean leapYear(int theYear) {
-		boolean leapYear = false;
-		if (theYear % 4 == 0) {
-			if (theYear % 100 == 0) {
-				// year is divisible by 400, hence the year is a leap year
-				if (theYear % 400 == 0) {
-					leapYear = true;
-				} else {
-					leapYear = false;
-				}
-
-			} else {
-				leapYear = true;
-			}
-
-		} else {
-			leapYear = false;
-		}
-
-		return leapYear;
-	}
-
-	/*
 	 * Check if the days entered for the required months are in correct range
 	 */
 	public boolean checkRangeMonths(int theDay, int theMonth, int theYear) {
@@ -205,19 +155,15 @@ public class UserInput {
 		int thirtyDays[] = { 4, 6, 9, 11 };
 		int february = 2;
 
-		System.out.println("The month is " + theMonth);
-
 		// check if month is 31 days
 		for (int i : thirtyOneDays) {
 			if (i == theMonth && this.betweenNums(theDay, 1, 31)) {
-				System.out.println("Found it in 31s ");
 				return true;
 			}
 		}
 		// check if month is 30 days
 		for (int i : thirtyDays) {
 			if (i == theMonth && this.betweenNums(theDay, 1, 30)) {
-				System.out.println("Found it in 30s ");
 				return true;
 			}
 		}
@@ -228,10 +174,8 @@ public class UserInput {
 			boolean itIsLeapYear = leapYear.leapYear(theYear);
 
 			if (itIsLeapYear && this.betweenNums(theDay, 1, 29)) {
-				System.out.println("Found it in 29s ");
 				return true;
 			} else if (!itIsLeapYear && this.betweenNums(theDay, 1, 28)) {
-				System.out.println("Found it in 28s ");
 				return true;
 			} else {
 				return false;
