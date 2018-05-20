@@ -39,7 +39,7 @@ public class DaysCalculator {
 	public int calculatorForDaysStart(int startDay, int theMonth, int theYear) {
 		// check how many days in the month
 		int totalDaysInTheMonths = this.monthRange.getTheExactDaysInMonth(theMonth, theYear);
-		int theNumberOfDays = totalDaysInTheMonths - startDay - 1;
+		int theNumberOfDays = totalDaysInTheMonths - startDay;
 		return theNumberOfDays;
 	}
 
@@ -103,6 +103,11 @@ public class DaysCalculator {
 	 * Calculates number of days between two given years
 	 */
 	public int calculatorForYears(int start, int end) {
+		if(start > end) {
+			int interim = start;
+			start = end;
+			end = interim;
+		}
 		int theResult = end - start;
 		System.out.println("the result is " + theResult);
 		int theNumberOfDays = 0;
@@ -150,11 +155,14 @@ public class DaysCalculator {
 			daysBetweenDays = calculatorForDays(this.start[0], this.end[0], this.start[1], this.start[2]);
 		} else {
 			// start[1] and end[1] are the months in the start and end arrays
-			int daysBetweenDaysFirstPart = this.calculatorForDaysStart(this.start[1], 12, this.start[2]);
-			int daysBetweenDaysSecondPart = this.calculatorForDaysEnd(this.end[1]);
+			int daysBetweenDaysFirstPart = this.calculatorForDaysStart(this.start[0], this.start[1], this.start[2]);
+			int daysBetweenDaysSecondPart = this.calculatorForDaysEnd(this.end[0]);
+			System.out.println("daysBetweenDaysFirstPart "+ daysBetweenDaysFirstPart);
+			System.out.println("daysBetweenDaysSecondPart "+ daysBetweenDaysSecondPart);
 			daysBetweenDays = daysBetweenDaysFirstPart + daysBetweenDaysSecondPart;
 		}
-		System.out.println(daysBetweenDays);
+		int theTotalDays = daysBetweenYears + daysBetweenMonths + daysBetweenDays; 
+		System.out.println(theTotalDays);
 		return 0;
 	}
 }
