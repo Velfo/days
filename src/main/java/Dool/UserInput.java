@@ -1,8 +1,6 @@
 package Dool;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserInput {
 	Scanner input = new Scanner(System.in);
@@ -27,7 +25,6 @@ public class UserInput {
 					continue;
 				}
 			} catch (Throwable t) {
-				// TODO handle better
 				t.printStackTrace();
 				break;
 			}
@@ -55,7 +52,6 @@ public class UserInput {
 					continue;
 				}
 			} catch (Throwable t) {
-				// TODO handle better
 				t.printStackTrace();
 				break;
 			}
@@ -64,19 +60,17 @@ public class UserInput {
 	}
 
 	/*
-	 * Receive the .
+	 * Receive the input from user
 	 */
 	public String receiveInputDate() {
 		Scanner input = new Scanner(System.in);
 		String uInput = input.nextLine();
-		String stringToSearch = uInput;
-		Pattern p = Pattern.compile("([0-9]{2})\\/([0-9]{2})\\/([0-9]{4})"); // the pattern to search for
-		Matcher m = p.matcher(stringToSearch);
-		if (!m.find()) {
-			System.out.printf("The format of the entered date (%s) is incorrect.%n", uInput);
-			return null;
+		String inputString = uInput.trim();
+		if(inputString.length() == 10 && inputString.charAt(2) == '/' && inputString.charAt(5) == '/'){
+            return uInput;
 		}
-		return uInput;
+        System.out.printf("The format of the entered date (%s) is incorrect.%n", uInput);
+        return null;
 	}
 
 	/*
