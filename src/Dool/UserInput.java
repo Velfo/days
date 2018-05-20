@@ -99,7 +99,6 @@ public class UserInput {
 				&& monthRange.betweenNums(int_parts[2], 1901, 2999)) {
 			// check if the year is a leap year
 			if (monthRange.checkRangeMonths(int_parts[0], int_parts[1], int_parts[2])) {
-				System.out.println("The range is okay");
 				return int_parts;
 			} else {
 				System.out.println("The range for MONTHS is not okay");

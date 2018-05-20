@@ -22,7 +22,6 @@ public class DaysCalculator {
 	 */
 	public int calculatorForDays(int startDay, int endDay, int theMonth, int theYear) {
 		int theResult = endDay - startDay;
-		System.out.println("the result is " + theResult);
 		int theNumberOfDays = 0;
 		if (theResult > 1) {
 			for (int i = startDay + 1; i < endDay; i++) {
@@ -57,7 +56,6 @@ public class DaysCalculator {
 	 */
 	public int calculatorForMonths(int startMonth, int endMonth, int theYear) {
 		int theResult = endMonth - startMonth;
-		System.out.println("the result is " + theResult);
 		int theNumberOfDays = 0;
 		if (theResult > 1) {
 			for (int i = startMonth + 1; i < endMonth; i++) {
@@ -73,7 +71,6 @@ public class DaysCalculator {
 	 */
 	public int calculatorForMonthsStart(int startMonth, int endMonth, int theYear) {
 		int theResult = endMonth - startMonth;
-		System.out.println("the result is " + theResult);
 		int theNumberOfDays = 0;
 		if (theResult > 1) {
 			for (int i = startMonth + 1; i <= endMonth; i++) {
@@ -89,7 +86,6 @@ public class DaysCalculator {
 	 */
 	public int calculatorForMonthsEnd(int startMonth, int endMonth, int theYear) {
 		int theResult = endMonth - startMonth;
-		System.out.println("the result is " + theResult);
 		int theNumberOfDays = 0;
 		if (theResult > 1) {
 			for (int i = startMonth; i < endMonth; i++) {
@@ -104,11 +100,9 @@ public class DaysCalculator {
 	 */
 	public int calculatorForYears(int start, int end) {
 		int theResult = end - start;
-		System.out.println("the result is " + theResult);
 		int theNumberOfDays = 0;
 		if (theResult > 1) {
 			for (int i = start + 1; i < end; i++) {
-				System.out.println("the year is " + i);
 				if (this.leapYear.leapYear(i)) {
 					theNumberOfDays += 366;
 				} else {
@@ -131,8 +125,6 @@ public class DaysCalculator {
 	 * Calculates and returns the number of days between the dates
 	 */
 	public int calculateTheResult() {
-		// start[2] and end[2] are the years in the start and end arrays
-		int daysBetweenYears = this.calculatorForYears(this.start[2], this.end[2]);
 		int daysBetweenMonths = 0;
 		int daysBetweenDays = 0;
 		int startYear = this.start[2];
@@ -141,20 +133,25 @@ public class DaysCalculator {
 		int endMonth = this.end[1];
 		int startDay = this.start[0];
 		int endDay = this.end[0];
-		// change the start and end if they are reverse
-		if(startYear > endYear) {
-			int interim = startYear;
+		// change the start and end of years and months if the years are provided in
+		// reverse
+		if (startYear > endYear) {
+			// change years
+			int interimYear = startYear;
 			startYear = endYear;
-			endYear = interim;
+			endYear = interimYear;
+			// change months
+			int interimMonth = startMonth;
+			startMonth = endMonth;
+			endMonth = interimMonth;
 		}
+		int daysBetweenYears = this.calculatorForYears(startYear, endYear);
 		// the dates are in the same year (for months)
 		if (startYear == endYear) {
 			daysBetweenMonths = calculatorForMonths(startMonth, endMonth, startYear);
 		} else {
 			int daysBetweenMonthsFirstPart = this.calculatorForMonthsStart(startMonth, 12, startYear);
 			int daysBetweenMonthsSecondPart = this.calculatorForMonthsEnd(0, endMonth, endYear);
-			System.out.println("daysBetweenMonthsFirstPart "+ daysBetweenMonthsFirstPart);
-			System.out.println("daysBetweenMonthsSecondPart "+ daysBetweenMonthsSecondPart);
 			daysBetweenMonths = daysBetweenMonthsFirstPart + daysBetweenMonthsSecondPart;
 		}
 		// the dates are in the same year on month (for days)
@@ -163,14 +160,9 @@ public class DaysCalculator {
 		} else {
 			int daysBetweenDaysFirstPart = this.calculatorForDaysStart(startDay, startMonth, startYear);
 			int daysBetweenDaysSecondPart = this.calculatorForDaysEnd(endDay);
-			System.out.println("daysBetweenDaysFirstPart "+ daysBetweenDaysFirstPart);
-			System.out.println("daysBetweenDaysSecondPart "+ daysBetweenDaysSecondPart);
 			daysBetweenDays = daysBetweenDaysFirstPart + daysBetweenDaysSecondPart;
 		}
-		int theTotalDays = daysBetweenYears + daysBetweenMonths + daysBetweenDays; 
-		System.out.println("daysBetweenYears "+daysBetweenYears);
-		System.out.println("daysBetweenMonths "+daysBetweenMonths);
-		System.out.println("daysBetweenDays "+ daysBetweenDays);
-		return 0;
+		int theTotalDays = daysBetweenYears + daysBetweenMonths + daysBetweenDays;
+		return theTotalDays;
 	}
 }

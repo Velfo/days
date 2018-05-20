@@ -11,7 +11,7 @@ public class Bashla {
 
 		if (theStartDate != null && theEndDate != null) {
 			DaysCalculator dCalc = new DaysCalculator(theStartDate, theEndDate);
-			dCalc.calculateTheResult();
+			System.out.println("The number of days is " + dCalc.calculateTheResult());
 		}
 
 	}
