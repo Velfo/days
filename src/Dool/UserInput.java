@@ -82,36 +82,6 @@ public class UserInput {
 	/*
 	 * Making sure that the general range in the input string is okay.
 	 */
-	public boolean checkRangeGeneral(String userInput) {
-		// split the user input
-		String[] parts = userInput.split("/");
-		String dd = parts[0];
-		String mm = parts[1];
-		String yyyy = parts[2];
-		// parse the user input
-		int int_dd = Integer.parseInt(dd);
-		int int_mm = Integer.parseInt(mm);
-		int int_yyyy = Integer.parseInt(yyyy);
-		// check the range of numbers is okay
-		if (this.betweenNums(int_dd, 1, 31) && this.betweenNums(int_mm, 1, 12)
-				&& this.betweenNums(int_yyyy, 1901, 2999)) {
-			// check if the year is a leap year
-			if (this.checkRangeMonths(int_dd, int_mm, int_yyyy)) {
-				System.out.println("The range is okay");
-				return true;
-			} else {
-				System.out.println("The range for MONTHS is not okay");
-				return false;
-			}
-		} else {
-			System.out.println("The range is not okay");
-			return false;
-		}
-	}
-
-	/*
-	 * Making sure that the general range in the input string is okay.
-	 */
 	public int[] parseInputDate(String userInput) {
 		// split the user input
 		String[] parts = userInput.split("/");

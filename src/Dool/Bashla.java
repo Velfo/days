@@ -8,12 +8,11 @@ public class Bashla {
 
 		int[] theStartDate = usin.getTheStartDay();
 		int[] theEndDate = usin.getTheEndDay();
-		
-	
+
 		if (theStartDate != null && theEndDate != null) {
 			DaysCalculator dCalc = new DaysCalculator(theStartDate, theEndDate);
+			dCalc.calculateTheResult();
 		}
-			
 
 	}
 
