@@ -41,6 +41,38 @@ public class DaysCalculator {
 	}
 
 	/*
+	 * Calculates number of days between two given months in a specific year (from
+	 * the given month till the end of year)
+	 */
+	public int calculatorForMonthsStart(int startMonth, int endMonth, int theYear) {
+		int theResult = endMonth - startMonth;
+		System.out.println("the result is " + theResult);
+		int theNumberOfDays = 0;
+		if (theResult > 1) {
+			for (int i = startMonth + 1; i <= endMonth; i++) {
+				theNumberOfDays += this.monthRange.getTheExactDaysInMonth(i, theYear);
+			}
+		}
+		return theNumberOfDays;
+	}
+
+	/*
+	 * Calculates number of days between two given months in a specific year (from
+	 * the beginning of the year to the given month)
+	 */
+	public int calculatorForMonthsEnd(int startMonth, int endMonth, int theYear) {
+		int theResult = endMonth - startMonth;
+		System.out.println("the result is " + theResult);
+		int theNumberOfDays = 0;
+		if (theResult > 1) {
+			for (int i = startMonth; i < endMonth; i++) {
+				theNumberOfDays += this.monthRange.getTheExactDaysInMonth(i, theYear);
+			}
+		}
+		return theNumberOfDays;
+	}
+
+	/*
 	 * Calculates number of days between two given years
 	 */
 	public int calculatorForYears(int start, int end) {
@@ -74,10 +106,11 @@ public class DaysCalculator {
 		// start[2] and end[2] are the years in the start and end arrays
 		int daysBetweenYears = this.calculatorForYears(this.start[2], this.end[2]);
 		// start[1] and end[1] are the months in the start and end arrays
-		int daysBetweenMonthsFirstPart = this.calculatorForMonths(this.start[1], 12, this.start[2]);
-		int daysBetweenMonthsSecondPart = this.calculatorForMonths(0, this.end[1], this.end[2]);
-		
-		System.out.println(daysBetweenYears);
+		int daysBetweenMonthsFirstPart = this.calculatorForMonthsStart(this.start[1], 12, this.start[2]);
+		int daysBetweenMonthsSecondPart = this.calculatorForMonthsEnd(0, this.end[1], this.end[2]);
+
+		System.out.println(daysBetweenMonthsFirstPart);
+		System.out.println(daysBetweenMonthsSecondPart);
 		return 0;
 	}
 }
