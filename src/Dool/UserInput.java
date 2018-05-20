@@ -224,10 +224,13 @@ public class UserInput {
 		// check for February
 		if (theMonth == february) {
 			// if the year is leap year
-			if (this.leapYear(theYear) && this.betweenNums(theDay, 1, 29)) {
+			LeapYear leapYear = new LeapYear();
+			boolean itIsLeapYear = leapYear.leapYear(theYear);
+
+			if (itIsLeapYear && this.betweenNums(theDay, 1, 29)) {
 				System.out.println("Found it in 29s ");
 				return true;
-			} else if (!this.leapYear(theYear) && this.betweenNums(theDay, 1, 28)) {
+			} else if (!itIsLeapYear && this.betweenNums(theDay, 1, 28)) {
 				System.out.println("Found it in 28s ");
 				return true;
 			} else {
