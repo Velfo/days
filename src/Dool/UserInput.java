@@ -93,11 +93,12 @@ public class UserInput {
 		int_parts[0] = Integer.parseInt(dd);
 		int_parts[1] = Integer.parseInt(mm);
 		int_parts[2] = Integer.parseInt(yyyy);
+		MonthsRange monthRange = new MonthsRange();
 		// check the range of numbers is okay
-		if (this.betweenNums(int_parts[0], 1, 31) && this.betweenNums(int_parts[1], 1, 12)
-				&& this.betweenNums(int_parts[2], 1901, 2999)) {
+		if (monthRange.betweenNums(int_parts[0], 1, 31) && monthRange.betweenNums(int_parts[1], 1, 12)
+				&& monthRange.betweenNums(int_parts[2], 1901, 2999)) {
 			// check if the year is a leap year
-			if (this.checkRangeMonths(int_parts[0], int_parts[1], int_parts[2])) {
+			if (monthRange.checkRangeMonths(int_parts[0], int_parts[1], int_parts[2])) {
 				System.out.println("The range is okay");
 				return int_parts;
 			} else {
@@ -109,49 +110,4 @@ public class UserInput {
 			return null;
 		}
 	}
-
-	/*
-	 * Finding out if the integer is between the range.
-	 */
-	public boolean betweenNums(int i, int minValueInclusive, int maxValueInclusive) {
-		return (i >= minValueInclusive && i <= maxValueInclusive);
-	}
-
-	/*
-	 * Check if the days entered for the required months are in correct range
-	 */
-	public boolean checkRangeMonths(int theDay, int theMonth, int theYear) {
-		int thirtyOneDays[] = { 1, 3, 5, 7, 8, 10, 12 };
-		int thirtyDays[] = { 4, 6, 9, 11 };
-		int february = 2;
-
-		// check if month is 31 days
-		for (int i : thirtyOneDays) {
-			if (i == theMonth && this.betweenNums(theDay, 1, 31)) {
-				return true;
-			}
-		}
-		// check if month is 30 days
-		for (int i : thirtyDays) {
-			if (i == theMonth && this.betweenNums(theDay, 1, 30)) {
-				return true;
-			}
-		}
-		// check for February
-		if (theMonth == february) {
-			// if the year is leap year
-			LeapYear leapYear = new LeapYear();
-			boolean itIsLeapYear = leapYear.leapYear(theYear);
-
-			if (itIsLeapYear && this.betweenNums(theDay, 1, 29)) {
-				return true;
-			} else if (!itIsLeapYear && this.betweenNums(theDay, 1, 28)) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return false;
-	}
-
 }
