@@ -14,25 +14,24 @@ public class UserInput {
 				while (true){
 			        System.out.println("Input the start date.");
 			        try {
-			            String uInput = input.nextLine();
-			            // TODO whatever you need to do with max temp
-			            
-			            String stringToSearch = uInput;
-
-					    Pattern p = Pattern.compile("([0-9]{2})\\/([0-9]{2})\\/([0-9]{4})");   // the pattern to search for
-//			            Pattern p = Pattern.compile("([0-3]{1})([0-3]{1})\\/([0-9]{2})\\/([0-9]{4})");
-					    Matcher m = p.matcher(stringToSearch);
+//			            String uInputStartDate = input.nextLine(); 
+//			            String stringToSearch = uInputStartDate;
+//					    Pattern p = Pattern.compile("([0-9]{2})\\/([0-9]{2})\\/([0-9]{4})");   // the pattern to search for
+//					    Matcher m = p.matcher(stringToSearch);
 					    
+			        	String uInputStartDate = receiveInputDate();
 					    // now try to find at least one match
-					    if (m.find() && this.checkRangeGeneral(stringToSearch))
-					      System.out.println("Found a match");
-					    else {
-//					    	 System.out.println("The format of the entered date is incorrect. Please enter a correct date");
-					    	 System.out.printf("The format of the entered date (%s) is incorrect. Please enter a correct start date %n ", uInput); 
+					    if (uInputStartDate != null && this.checkRangeGeneral(uInputStartDate)) {
+					    	System.out.printf("You have entered (%s) as your start date. Now, please enter the end date %n ", uInputStartDate);
+						    System.out.println("Input the end date.");
+						    String uInputEndDate = receiveInputDate();
+						    if (uInputEndDate != null && this.checkRangeGeneral(uInputEndDate)) {
+						    	System.out.println("You have entered correct days.");
+						    }
+					      }
+					    else { 
 					    	 continue;
 					    }
-					    System.out.printf("You have entered (%s) as your start date. Now, please enter the end date %n ", uInput);
-					    System.out.println("Input the end date.");
 			        }
 			        catch (Throwable t) {
 			            // TODO handle better
@@ -40,17 +39,21 @@ public class UserInput {
 			            break;
 			        }
 			        
-			        try {
-			            int minTemp = input.nextInt();
-			            // TODO whatever you need to do with min temp
-			        }
-			        catch (Throwable t) {
-			            // TODO handle better
-			            t.printStackTrace();
-			            break;
-			        }
 			}
 	}
+	public String receiveInputDate() {
+		Scanner input = new Scanner(System.in);
+		String uInput = input.nextLine(); 
+        String stringToSearch = uInput;
+	    Pattern p = Pattern.compile("([0-9]{2})\\/([0-9]{2})\\/([0-9]{4})");   // the pattern to search for
+	    Matcher m = p.matcher(stringToSearch);
+	    if(!m.find()) {
+	    	System.out.printf("The format of the entered date (%s) is incorrect. Please enter a correct date %n ", uInput);
+	    	return null;
+	    }
+		return uInput;
+	}
+	
 	/*
 	 * Making sure that the general range in the input string is okay.
 	 */
